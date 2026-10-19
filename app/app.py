@@ -105,6 +105,11 @@ def payload(status: str = "operational") -> dict[str, Any]:
     }
 
 
+def ready_payload() -> dict[str, Any]:
+    """Return the readiness response without changing other service metadata."""
+    return {**payload(), "status": "ready"}
+
+
 def response_json(handler: BaseHTTPRequestHandler, status: int, body: Any) -> None:
     encoded = json.dumps(body, sort_keys=True).encode("utf-8")
     handler.send_response(status)
@@ -127,7 +132,7 @@ class CloudSentinelHandler(BaseHTTPRequestHandler):
             response_json(self, HTTPStatus.OK, {"status": "ok"})
             return
         if path == "/readyz":
-            response_json(self, HTTPStatus.OK, {"status": "ready", **payload()})
+            response_json(self, HTTPStatus.OK, ready_payload())
             return
         if path == "/api/status":
             response_json(self, HTTPStatus.OK, payload())

@@ -25,6 +25,11 @@ class CloudSentinelTests(unittest.TestCase):
         self.assertEqual(payload["status"], "operational")
         self.assertIn("instance_id", payload)
 
+    def test_readiness_payload_reports_ready(self):
+        readiness = cloudsentinel.ready_payload()
+        self.assertEqual(readiness["status"], "ready")
+        self.assertEqual(readiness["service"], "CloudSentinel")
+
     def test_events_are_persistent_in_the_store(self):
         event = self.store.record("heartbeat", "test event")
         events = self.store.recent()
