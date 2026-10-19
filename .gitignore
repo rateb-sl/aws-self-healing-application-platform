@@ -1,0 +1,31 @@
+# Terraform and provider state
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Variable and credential material
+*.tfvars
+*.tfvars.json
+.env
+.env.*
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local databases and logs
+*.db
+*.sqlite3
+*.log
+build/
+
+# macOS / editor
+.DS_Store
+.vscode/
+.idea/
